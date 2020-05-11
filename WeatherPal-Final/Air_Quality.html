@@ -41,10 +41,7 @@
   
   <body>
    <!--display condition value and chart-->
-   <div class="display">
-    	<p id="condition" class="center cloud">Dust level</p>
-      </div>
-    
+       
     <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-auth.js"></script>
@@ -67,6 +64,7 @@
       receiveData(stationid, updater);
     </script>
     <img class="wp-image-70786 size-large" src="https://blogs.ei.columbia.edu/wp-content/uploads/2018/06/AQ-advisory_MPCAPhotos-637x358.jpg" alt="air quality alerts on a highway" width="100%" height="358" >
+    <div id="content-area">
     <p>“It’s a code red day for ozone.” If you hear this on your local news, what does it mean? Are you at risk? Do you know what to do? An air quality alert like this informs the public about pollution levels 
       in the air and advises vulnerable groups—such as the elderly, children, and people with lung disease—to take precautions.</p>
     <p>
@@ -146,7 +144,8 @@ Levels over 300 mean very hazardous conditions.
       
       <time itemprop="datePublished" class="no-wrap relative-date chunk" datetime="2013-08-29T23:46:40Z">on June 26, 2018</time>
       </p>
-      </header>
+    </header>
+  </div>
     <script src="script.js"></script>
   </body>
 </html>
