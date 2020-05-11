@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="script.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>WeatherPal</title>
+      
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="manifest" href="manifest.json"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>            
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    </head>
+
+
+    <!--navigation menu-->
+    <nav>
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo"><i class="material-icons">cloud</i>Air Quality</a>
+      <a href="#" data-target="sidenavId" class="sidenav-trigger"><i class="material-icons">menu</i></a>     
+    </div>  
+    
+   <!--links-->
+   <ul class="sidenav" id="sidenavId" >
+    <li><img src="propic.png" alt="Smiley face" height="100" width="100"></li>
+    <li><a class="waves-effect waves-light" href="Login.html" onclick="this.href=this.href+'?'+stationid">Login</a></li>
+    <li><a class="waves-effect waves-light" href="Temperature.html" onclick="this.href=this.href+'?'+stationid">Air Temperature</a></li>
+    <li><a class="waves-effect waves-light" href="index.html" onclick="this.href=this.href+'?'+stationid">Index</a></li>
+    <li><a class="waves-effect waves-light" href="Barometric_Pressure.html" onclick="this.href=this.href+'?'+stationid">Barometric Pressure</a></li>
+    <li><a class="waves-effect waves-light" href="Search.html" onclick="this.href=this.href+'?'+stationid">Search</a></li>
+    <li><a class="waves-effect waves-light" href="Humidity.html" onclick="this.href=this.href+'?'+stationid">Humidity</a></li>
+    <li><a class="waves-effect waves-light" href="Rainfall.html" onclick="this.href=this.href+'?'+stationid">Rainfall</a></li>
+    <li><a class="waves-effect waves-light" href="UV-index.html" onclick="this.href=this.href+'?'+stationid">UV-index</a></li>
+    <li><a class="waves-effect waves-light" href="Wind_Direction.html" onclick="this.href=this.href+'?'+stationid">Wind Direction</a></li>
+    <li><a class="waves-effect waves-light" href="Wind_Speed.html" onclick="this.href=this.href+'?'+stationid">Wind Speed</a></li>
+    <li><a class="waves-effect waves-light" href="Account.html" onclick="this.href=this.href+'?'+stationid">Account</a></li>
+    <li><a class="waves-effect waves-light"  id="signout" href="Login.html" onclick="signout();">Sign out</a></li>
+  </ul>  
+  </nav>
+  
+  <body>
+   <!--display condition value and chart-->
+   <div class="display">
+    	<p id="condition" class="center cloud">Dust level</p>
+      </div>
+    
+    <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-auth.js"></script>
+	<script src="js/initializefirestore.js"></script>
+	<script src="js/stationfunctions.js"></script>
+	<script src="js/accountfunctions.js"></script>
+	<script src="js/logfunctions.js"></script>
+    <script>
+       //enable signout button if user is logged in
+      var enblSignout= function(condition){
+        if(condition)
+         document.getElementById("signout").style.display="inline";
+      }
+      checkLogin(enblSignout);
+      //retrieve conditon and display
+      var stationid=parent.document.URL.substring(parent.document.URL.indexOf('?')+1, parent.document.URL.length);
+      var updater=function (conditions){
+        document.getElementById("condition").innerHTML=conditions[2];
+      }
+      receiveData(stationid, updater);
+    </script>
+    <img class="wp-image-70786 size-large" src="https://blogs.ei.columbia.edu/wp-content/uploads/2018/06/AQ-advisory_MPCAPhotos-637x358.jpg" alt="air quality alerts on a highway" width="100%" height="358" >
+    <p>“It’s a code red day for ozone.” If you hear this on your local news, what does it mean? Are you at risk? Do you know what to do? An air quality alert like this informs the public about pollution levels 
+      in the air and advises vulnerable groups—such as the elderly, children, and people with lung disease—to take precautions.</p>
+    <p>
+      The U.S. Environmental Protection Agency (EPA) created the Air Quality Index (AQI)  to monitor and report on air quality each day and let people know about its possible health impacts.
+    </p>
+<p>
+Monitors record pollution at over 1000 locations in the U.S. for four major pollutants regulated by the Clean Air Act—ground level ozone, particulate matter, carbon monoxide and sulfur dioxide. 
+A level of 100 is deemed safe for each pollutant. An AQI number under 100 signifies good or acceptable air quality, while a number over 100 is cause for concern and triggers an alert for vulnerable 
+groups. If two or more pollutants exceed 100, the highest number becomes the value for the day, and agencies must alert all the groups that are vulnerable to those pollutants. 
+Levels over 300 mean very hazardous conditions.
+</p>
+    <h4>The four pollutants</h4>
+    <h3>Ozone</h3>
+    <p>When it’s up in the Earth’s stratosphere, ozone gas protects us from harmful ultraviolet rays. But ground level ozone, a major component of smog, can cause coughing, chest tightness or pain, 
+      decrease lung function and worsen asthma and other chronic lung diseases. It can harm the lining of the lungs, make lungs more vulnerable to infection, and potentially damage them permanently.</p>
+     <p>
+      Ground level ozone is produced when emissions from vehicles, power plants, industrial boilers and other fossil fuel burning facilities 
+      react with sunlight. It often forms in warmer months when there is more sunlight, and peaks during rush hour when many cars are on the road. 
+    </p> 
+    <h3>Particulate matter</h3>
+    <p>
+      Particulate matter (PM) refers to small particles, both solid and liquid, that can enter the lungs and cause respiratory problems. Particulate matter 
+      that is between 2.5 and 10 micrometers (smaller than the width of a human hair), called PM10, arises from crushing and grinding activities and dust on roads. PM less than 2.5 micrometers, called PM2.5,
+       can only be seen through an electron microscope. It comes from cars, power plants, wood burning, 
+      forest fires, and other combustion. In addition, ammonia from fertilized fields and manure can combine with industrial emissions to form PM2.5.
+    </p>
+    <p>
+      PM2.5 can penetrate deep into the lungs, enter the bloodstream, and move to other organs. It can cause coughing, wheezing, shortness of breath, palpitations, and
+       fatigue; it can also aggravate asthma and chronic bronchitis, and has been linked to cardiac
+       arrhythmia and heart attacks.
+    </p>
+      <h3>Carbon monoxide</h3>
+      <p>Carbon monoxide—a colorless, odorless gas—forms when carbon does not burn completely. Most carbon monoxide pollution comes from vehicles, 
+        but it is also caused by industrial combustion, wood burning stoves and wildfires. High levels of carbon monoxide often occur in cold weather as 
+        cold temperatures make combustion less
+         complete and trap the gas closer to the ground.</p>
+      <p>Because carbon monoxide decreases the amount of oxygen reaching the body’s organs, it can cause flu-like symptoms and chest pain in those with cardiovascular disease. While 
+        everyone is susceptible to carbon monoxide poisoning, the unborn, babies, the elderly, and people with chronic heart disease, anemia, or respiratory problems are most at risk. 
+        High levels of carbon monoxide can result in dizziness, blurred vision and confusion; very high levels can cause death.
+      </p>
+      <h3>Sulfur dioxide</h3>
+      <p>Sulfur dioxide is produced when coal and oil fuels containing sulfur are burned in power plants and refineries. Normally the irritating gas is kept out of the body by the nasal passages, but when physical exertion necessitates mouth breathing, sulfur 
+        dioxide can cause wheezing, shortness of breath and tightness in the chest. Long-term exposure can aggravate asthma and other chronic lung and cardiovascular diseases. Sulfur dioxide also contributes to the formation of particulate matter.
+      </p>
+      <h3>Who is vulnerable?</h3>
+      <img src="https://blogs.ei.columbia.edu/wp-content/uploads/2018/06/air-quality-alerts.png" width="100%" height="200px">
+      <p>
+        As Air Quality Index values rise, more of the public becomes vulnerable. An AQI between 0 and 50 is good. A level of 51-100  is acceptable, but a few people who are sensitive to certain pollutants may have reactions.
+      </p>
+     <p>
+      At 101 to 150, the air is considered unhealthy for sensitive groups: The elderly, children, and people with lung disease are vulnerable to the effects of ozone pollution; and the elderly, children and those with heart and lung disease are at risk from particulate matter. These groups should reduce their exertion outdoors.
+     </p>
+     <p>When air quality reaches 151-200, it is considered unhealthy; everyone may now begin to experience problems, with sensitive groups feeling more serious effects. From 201 to 300, the air is judged to be very unhealthy; children, asthmatics and people with heart or lung conditions should avoid the outdoors and all others 
+       should reduce their outdoors exertion. When the Air Quality Index exceeds 300, it is “hazardous” for everyone and may prompt emergency condition alerts.</p>
+   <p>
+    During air quality alerts, the vulnerable should reduce physical exertion and try to stay indoors with the windows closed. Those with asthma should carry their inhalers and use a face mask if they go outdoors.
+   </p>
+      
+      <h4>What to do when Air quality is poor?</h4>
+      <p>
+        While people directly affected by air pollution should follow the AQI recommendations, there are also things everyone can do to improve air
+         quality. Because most pollutants stem from the emissions of power plants and industrial boilers, conserving energy is important. Turn off unnecessary lights and turn down air conditioning. 
+        Set thermostats higher in summer and lower in winter, and use Energy Star appliances. Drive less and take public transportation or bike. 
+      </p> 
+      <p>
+        If driving, minimize idling. Refuel the car after dark so polluting emissions cannot react with sunlight and heat to create ground level ozone. Keep your car tuned and your tires properly 
+        inflated. Don’t use a gas-powered lawn mower. Choose low-VOC paint or cleaning products and seal them tight so they don’t evaporate. Avoid aerosol products, and don’t burn leaves, garbage or 
+        use wood stoves or fireplaces.
+      </p>
+      <header>
+
+
+
+      <p class="byline">
+      Reference: "What You Should Know About Air Quality Alerts? ",
+      <span class="no-wrap by-author"><a href="https://blogs.ei.columbia.edu/author/renee-cho/" rel="author"><span style="white-space: nowrap">Renee Cho</span>
+      
+      <time itemprop="datePublished" class="no-wrap relative-date chunk" datetime="2013-08-29T23:46:40Z">on June 26, 2018</time>
+      </p>
+      </header>
+    <script src="script.js"></script>
+  </body>
+</html>
