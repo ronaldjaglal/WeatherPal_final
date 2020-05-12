@@ -13,7 +13,7 @@
      <link rel="stylesheet" href="css/logcharts.css"/>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
      <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-     <link href="style.css" rel="stylesheet" type="text/css" />      
+     <link href="css/style.css" rel="stylesheet" type="text/css" />      
     </head>
     
   <!--navigation menu-->
@@ -25,7 +25,7 @@
      <!--links-->
     <!--stationid is passed between pages for accessing values from firestore and maintaining state-->
     <ul class="sidenav" id="sidenavId" >
-      <li><img src="propic.png" alt="Smiley face" height="100" width="100"></li>
+      <li><img src="images/propic.png" alt="Smiley face" height="100" width="100"></li>
       <li><a class="waves-effect waves-light" href="Login.html" onclick="this.href=this.href+'?'+stationid">Login</a></li>
       <li><a class="waves-effect waves-light" href="Home.html" onclick="this.href=this.href+'?'+stationid">Home</a></li>
       <li><a class="waves-effect waves-light" href="Search.html" onclick="this.href=this.href+'?'+stationid">Search</a></li>
@@ -162,6 +162,6 @@
       }
       receiveData(stationid, updater);      
     </script>
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
   </body>
 </html>
